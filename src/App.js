@@ -37,23 +37,16 @@ const initialOrders = [];
 
 const initialDisabled = true;
 
-
-
 const App = () => {
-
 
   const [formValues, setFormValues] = useState(initialFormValues);
   const [disabled, setDisabled] = useState(initialDisabled);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [orders, setOrders] = useState(initialOrders);
 
-
-
   function reset() {
     setFormValues(initialFormValues)
   }
-
-
 
   const validate = (name, value) => {
     yup.reach(schema, name)
@@ -103,18 +96,18 @@ const App = () => {
       username: formValues.username.trim(),
       size: formValues.size.trim(),
       sauce: formValues.sauce.trim(),
-      pepperoni: formValues.pepperoni,
-      sausage: formValues.sausage,
-      tomatos: formValues.tomatos,
-      olives: formValues.olives,
-      special: formValues.special,
-      gluten: formValues.gluten
-
+      toppings: {
+        pepperoni: formValues.pepperoni,
+        sausage: formValues.sausage,
+        tomatos: formValues.tomatos,
+        olives: formValues.olives,
+      },
+      gluten: formValues.gluten,
+      special: formValues.special.trim(),
     }
     setFormValues(initialFormValues)
     postNewOrder(newOrder)
   }
-
 
   return (
     <Switch>
@@ -137,8 +130,6 @@ const App = () => {
       <Route path="/pizza/confirm">
         <Confirmation orders={orders} />
       </Route>
-
-
     </Switch>
   );
 };

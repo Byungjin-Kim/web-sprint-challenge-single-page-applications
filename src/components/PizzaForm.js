@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -59,12 +60,19 @@ export default function PizzaForm(props) {
         change,
         disabled,
         errors
-    } = props
+    } = props;
 
-    const onSubmit = evt => {
+    const history = useHistory();
+
+    const onFormSubmit = async (evt) => {
         evt.preventDefault();
-        submit();
-    }
+        try {
+            await submit(values); // submit - async 
+            history.push("/pizza/confirm"); // redirection
+        } catch (error) {
+            console.error("Form submission error:", error); // error
+        }
+    };
 
     const onChange = evt => {
         const { name, value, checked, type } = evt.target;
@@ -85,7 +93,7 @@ export default function PizzaForm(props) {
 
             </div>
 
-            <StyledForm className="pizza-Form" id="pizza-form" onSubmit={onSubmit}>
+            <StyledForm className="pizza-Form" id="pizza-form" onSubmit={onFormSubmit}>
 
                 <div className="pizza-order">
                     <h3>Build Your Own Pizza</h3>
@@ -179,7 +187,7 @@ export default function PizzaForm(props) {
                 <div className="topping-select">
                     {toppings.map(topping => {
                         return (
-                            <label>{topping}
+                            <label key={topping}>{topping} {/* topping value as a key*/}
                                 <input
                                     type="checkbox"
                                     name={topping}

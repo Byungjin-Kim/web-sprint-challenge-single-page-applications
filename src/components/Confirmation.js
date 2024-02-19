@@ -1,9 +1,7 @@
 import React from "react";
 
 
-export default function Confirmation(props) {
-    const { orders } = props
-
+export default function Confirmation() {
     return (
         <div className="confirm-wrapper">
             <div className="order-confirm">
@@ -11,5 +9,6 @@ export default function Confirmation(props) {
                 <p>Enjoy this Dog with Pizza</p>
             </div>
         </div>
-    )
+    );
 }
+
